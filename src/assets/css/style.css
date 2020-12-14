@@ -134,6 +134,7 @@ header nav .logo img {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   font-size: 1.1rem;
+  cursor: pointer;
 }
 
 .first_section .sub_heading a.active {
@@ -195,6 +196,10 @@ header nav .logo img {
   display: none;
   z-index: 2;
   overflow: hidden;
+}
+
+.first_section .filters .drop .menu ul li a{
+  cursor: pointer;
 }
 
 .first_section .filters .drop .menu.active {

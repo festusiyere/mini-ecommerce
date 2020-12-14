@@ -48,6 +48,7 @@ export default {
         this.$refs["input"].classList.add("typing");
       } else {
         this.$refs["input"].classList.remove("typing");
+        this.removeString();
       }
     },
   },

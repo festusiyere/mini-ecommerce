@@ -18,63 +18,71 @@
           <h2>Merchants</h2>
         </div>
         <div class="heading" v-else>
-          <h2 v-if="datasCopy.length > 0">Search Result for {{datasCopy.length}} <q> {{searchString}} </q> </h2>
-          <h2 v-if="datasCopy.length == 0">No Result for <q> {{searchString}} </q> </h2>
+          <h2 v-if="datas.length > 0">
+            Search Result for
+            <q>{{searchString}}</q>
+          </h2>
+          <h2 v-if="datas.length == 0">
+            No Result for
+            <q>{{searchString}}</q>
+          </h2>
         </div>
         <div class="sub_heading" v-show="!isSearch">
-          <a href class="active">All</a>
-          <a href>Service Merchants</a>
-          <a href>Product Merchants</a>
+          <a @click="all_merchants" ref="all_merchants" class="active">All</a>
+          <a @click="service_merchants" ref="service_merchants">Service Merchants</a>
+          <a @click="product_merchants" ref="product_merchants">Product Merchants</a>
         </div>
       </div>
       <div class="container">
-  <div class="filters" v-show="!isSearch">
-    <div class="drop">
-      <button @click="toggle">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-filter"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M5.5 5h13a1 1 0 0 1 .5 1.5l-5 5.5l0 7l-4 -3l0 -4l-5 -5.5a1 1 0 0 1 .5 -1.5" />
-        </svg>
-        <span>Filters</span>
-      </button>
-      <div class="menu" ref="menu"  @click="toggle">
-        <ul>
-          <li class="active">
-            <a href>None</a>
-          </li>
-          <li>
-            <a href>Popularity</a>
-          </li>
-          <li>
-            <a href>Newest Arrival</a>
-          </li>
-          <li>
-            <a href>Price: Low to High</a>
-          </li>
-          <li>
-            <a href>Price: High to Low</a>
-          </li>
-          <li>
-            <a href>Rating: Low to High</a>
-          </li>
-          <li>
-            <a href>Rating: High to Low</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+        <div class="filters" v-show="!isSearch">
+          <div class="drop">
+            <button @click="toggle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-filter"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                  d="M5.5 5h13a1 1 0 0 1 .5 1.5l-5 5.5l0 7l-4 -3l0 -4l-5 -5.5a1 1 0 0 1 .5 -1.5"
+                />
+              </svg>
+              <span>Filters</span>
+            </button>
+            <div class="menu" ref="menu" @click="toggle">
+              <ul>
+                <li class="active">
+                  <a @click="none" ref="none">None</a>
+                </li>
+                <li>
+                  <a @click="popularity" ref="popularity">Popularity</a>
+                </li>
+                <li>
+                  <a @click="newest" ref="newest">Newest Arrival</a>
+                </li>
+                <li>
+                  <a @click="priceLow" ref="priceLow">Price: Low to High</a>
+                </li>
+                <li>
+                  <a @click="priceHigh" ref="priceHigh">Price: High to Low</a>
+                </li>
+                <li>
+                  <a @click="ratingLow" ref="ratingLow">Rating: Low to High</a>
+                </li>
+                <li>
+                  <a @click="ratingHigh" ref="ratingHigh">Rating: High to Low</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -85,8 +93,8 @@
             <div class="image" v-for="item in datas" :key="item.id">
               <img :src="'https://picsum.photos/500/500?random='+item.id" />
               <div class="text">
-                <div class="name">&#8358; {{item.price | currency}} </div>
-                <div class="location"> {{item.first_name}}, {{item.last_name}}</div>
+                <div class="name">&#8358; {{item.price | currency}}</div>
+                <div class="location">{{item.first_name}}, {{item.last_name}}</div>
               </div>
               <div class="rating">
                 <span>{{item.rating}}</span>
@@ -118,32 +126,31 @@
 
 <script>
 import SearchComponent from "@/components/SearchComponent";
-import json from '@/assets/data.json';
+import json from "@/assets/data.json";
 // Mixins
-import filter from "@/mixins/filter";
+import filters from "@/mixins/filter";
 export default {
-  mixins: [filter],
+  mixins: [filters],
   name: "HomeComponent",
-    components: {
+  components: {
     "search-component": SearchComponent,
   },
-  data(){
+  data() {
     return {
       datas: [],
-      datasCopy: []
-    }
+      datasCopy: [],
+    };
   },
-  methods:{
-    search(val){
+  methods: {
+    search(val) {
       this.datas = [...this.findMatches(val)];
-      this.isSearch = true;
       this.searchString = val;
-    }
+      this.isSearch = true;
+    },
   },
-  mounted(){
+  mounted() {
     this.datas = [...json];
     this.datasCopy = [...json];
-  }
-
+  },
 };
 </script>
