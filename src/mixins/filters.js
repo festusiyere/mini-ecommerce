@@ -88,7 +88,7 @@ const filters = {
         ratingHigh() {
             this.removeClass('.menu ul li', 'active')
             this.datas = [...this.datasCopy.slice().sort((a, b) => b.rating - a.rating)];
-            this.$refs["ratingHeight"].parentElement.classList.add("active");
+            this.$refs["ratingHigh"].parentElement.classList.add("active");
         },
     }
 }
