@@ -128,7 +128,7 @@
 import SearchComponent from "@/components/SearchComponent";
 import json from "@/assets/data.json";
 // Mixins
-import filters from "@/mixins/filter";
+import filters from "@/mixins/filters";
 export default {
   mixins: [filters],
   name: "HomeComponent",
