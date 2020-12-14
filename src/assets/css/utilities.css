@@ -1,0 +1,31 @@
+a {
+  text-decoration: none;
+  color: var(--text-primary-light);
+  transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1) all;
+}
+
+a:hover{
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+button{
+    background: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+button:active, button:{
+    outline: none;
+    border: none;
+}
+
+.container{
+    padding: 0 4rem;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
+    .container{
+        padding: 0 2rem;
+    }    
+}
