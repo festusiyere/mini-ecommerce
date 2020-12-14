@@ -9,22 +9,26 @@
     </header>
     <section class="top_section">
       <div class="input_container">
-        <search-component/>
+        <search-component @search="search" @reset="removeString" />
       </div>
     </section>
     <section class="first_section">
       <div class="container">
-        <div class="heading">
+        <div class="heading" v-if="!isSearch">
           <h2>Merchants</h2>
         </div>
-        <div class="sub_heading">
+        <div class="heading" v-else>
+          <h2 v-if="datasCopy.length > 0">Search Result for {{datasCopy.length}} <q> {{searchString}} </q> </h2>
+          <h2 v-if="datasCopy.length == 0">No Result for <q> {{searchString}} </q> </h2>
+        </div>
+        <div class="sub_heading" v-show="!isSearch">
           <a href class="active">All</a>
           <a href>Service Merchants</a>
           <a href>Product Merchants</a>
         </div>
       </div>
       <div class="container">
-  <div class="filters">
+  <div class="filters" v-show="!isSearch">
     <div class="drop">
       <button @click="toggle">
         <svg
@@ -125,11 +129,20 @@ export default {
   },
   data(){
     return {
-      datas: []
+      datas: [],
+      datasCopy: []
+    }
+  },
+  methods:{
+    search(val){
+      this.datas = [...this.findMatches(val)];
+      this.isSearch = true;
+      this.searchString = val;
     }
   },
   mounted(){
     this.datas = [...json];
+    this.datasCopy = [...json];
   }
 
 };

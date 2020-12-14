@@ -24,7 +24,7 @@
       class="close"
       width="56"
       height="56"
-      @click="value=''"
+      @click="removeString"
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="#000"
@@ -59,6 +59,10 @@ export default {
   methods: {
     search() {
       this.$emit("search", this.value);
+    },
+    removeString() {
+      this.$emit("reset");
+      this.value = "";
     },
   },
 };
